@@ -94,3 +94,18 @@ pair<Pokemon, Pokemon> choosePokemon(const vector<Pokemon>& pokemons) {
 
     return {pokemons[choice1], pokemons[choice2]};
 }
+
+// Choose a skill
+int chooseSkill(const Pokemon& pokemon) {
+    int choice;
+    do {
+        cout << "Choose a skill (0~3): ";
+        cin >> choice;
+        if (pokemon.skills[choice].remainingTry == 0) {
+            cout << pokemon.name << " failed to perform " << pokemon.skills[choice].name << ".\n";
+            cout<< "\n";
+            return -1; // Skill cannot be used, skip turn
+        }
+    } while (choice < 0 || choice > 3);
+    return choice;
+}
