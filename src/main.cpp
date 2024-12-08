@@ -141,4 +141,24 @@ void battle(Pokemon& p1, Pokemon& p2) {
                 cout << effectiveness1 << "\n";
                 cout << "\n";
             }
-        } 
+        } else {
+            // Player 2's turn
+            int choice = chooseSkill(p2);
+            if (choice != -1) {
+                Skill& skill2 = p2.skills[choice];
+                int effectiveness = getEffectiveness(skill2.type, p1.type);
+                int damage = skill2.damage;
+                if (effectiveness == 5) {
+                    damage += 5;
+                } else if (effectiveness == -3) {
+                    damage -= 3;
+                }
+                p1.currentHP = max(0, p1.currentHP - damage);
+                skill2.remainingTry--;
+                latestSkill2 = skill2.name;
+                effectiveness2 = (effectiveness == 5) ? "It was super effective." : (effectiveness == -3) ? "It was not very effective." : "It was effective.";
+                cout << p2.name << " used " << skill2.name << ".\n";
+                cout << effectiveness2 << "\n";
+                cout << "\n";
+            }
+        }
