@@ -78,3 +78,19 @@ void displayBattlePage(const Pokemon& p1, const Pokemon& p2, const string& lates
     }
     cout << "+------------------------------+------------------------------+\n";
 }
+
+// Choose a Pokémon
+pair<Pokemon, Pokemon> choosePokemon(const vector<Pokemon>& pokemons) {
+    int choice1, choice2;
+    cout << "Choose a Pokemon(0~4): ";
+    cin >> choice1;
+    cout << "Choose a Pokemon(0~4): ";
+    cin >> choice2;
+
+    if (choice1 == choice2) {
+        cout << "You have to choose Pokemons different from each other." << endl;
+        exit(0);
+    }
+
+    return {pokemons[choice1], pokemons[choice2]};
+}
