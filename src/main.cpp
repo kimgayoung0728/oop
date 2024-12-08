@@ -107,6 +107,38 @@ int chooseSkill(const Pokemon& pokemon) {
             return -1; // Skill cannot be used, skip turn
         }
     } while (choice < 0 || choice > 3);
-    
+
     return choice;
 }
+
+// Battle logic
+void battle(Pokemon& p1, Pokemon& p2) {
+    string latestSkill1 = "-", latestSkill2 = "-";
+    string effectiveness1 = "", effectiveness2 = "";
+    bool isPlayer1Turn = true;
+
+    while (p1.currentHP > 0 && p2.currentHP > 0) {
+        // Display battle page
+        displayBattlePage(p1, p2, latestSkill1, latestSkill2, effectiveness1, effectiveness2, isPlayer1Turn);
+
+        if (isPlayer1Turn) {
+            // Player 1's turn
+            int choice = chooseSkill(p1);
+            if (choice != -1) {
+                Skill& skill = p1.skills[choice];
+                int effectiveness = getEffectiveness(skill.type, p2.type);
+                int damage = skill.damage;
+                if (effectiveness == 5) {
+                    damage += 5;
+                } else if (effectiveness == -3) {
+                    damage -= 3;
+                }
+                p2.currentHP = max(0, p2.currentHP - damage);
+                skill.remainingTry--;
+                latestSkill1 = skill.name;
+                effectiveness1 = (effectiveness == 5) ? "It was super effective." : (effectiveness == -3) ? "It was not very effective." : "It was effective.";
+                cout << p1.name << " used " << skill.name << ".\n";
+                cout << effectiveness1 << "\n";
+                cout << "\n";
+            }
+        } 
