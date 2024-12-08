@@ -107,5 +107,6 @@ int chooseSkill(const Pokemon& pokemon) {
             return -1; // Skill cannot be used, skip turn
         }
     } while (choice < 0 || choice > 3);
+    
     return choice;
 }
