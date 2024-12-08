@@ -162,3 +162,12 @@ void battle(Pokemon& p1, Pokemon& p2) {
                 cout << "\n";
             }
         }
+
+        // Switch turn
+        isPlayer1Turn = !isPlayer1Turn;
+    }
+
+    // Print match result
+    cout << "===============================================================\n";
+    cout << "Match Result: " << (p1.currentHP > 0 ? p1.name : p2.name) << " defeats " << (p1.currentHP > 0 ? p2.name : p1.name) << "\n";
+}
